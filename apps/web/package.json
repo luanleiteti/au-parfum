@@ -1,0 +1,27 @@
+{
+  "name": "web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@au-parfum/auth": "workspace:*",
+    "@au-parfum/env": "workspace:*",
+    "@nuxt/ui": "^4.5.1",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "nuxt": "^4.4.2",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@au-parfum/config": "workspace:*",
+    "@iconify-json/lucide": "^1.2.96",
+    "tailwindcss": "^4.2.1",
+    "typescript": "catalog:"
+  }
+}

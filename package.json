@@ -1,0 +1,48 @@
+{
+  "name": "au-parfum",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "catalog": {
+      "dotenv": "^17.2.2",
+      "zod": "^4.1.13",
+      "typescript": "^5",
+      "@types/bun": "^1.3.4",
+      "better-auth": "1.5.2"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @au-parfum/db db:push",
+    "db:studio": "turbo -F @au-parfum/db db:studio",
+    "db:generate": "turbo -F @au-parfum/db db:generate",
+    "db:migrate": "turbo -F @au-parfum/db db:migrate",
+    "db:start": "turbo -F @au-parfum/db db:start",
+    "db:watch": "turbo -F @au-parfum/db db:watch",
+    "db:stop": "turbo -F @au-parfum/db db:stop",
+    "db:down": "turbo -F @au-parfum/db db:down",
+    "check": "oxlint && oxfmt --write"
+  },
+  "dependencies": {
+    "@au-parfum/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@au-parfum/config": "workspace:*",
+    "@types/bun": "catalog:",
+    "oxfmt": "^0.26.0",
+    "oxlint": "^1.41.0",
+    "turbo": "^2.8.12",
+    "typescript": "catalog:"
+  },
+  "packageManager": "bun@1.3.10"
+}

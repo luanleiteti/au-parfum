@@ -1,0 +1,3 @@
+{
+  "extends": "@au-parfum/config/tsconfig.base.json"
+}

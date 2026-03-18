@@ -1,0 +1,24 @@
+{
+  "name": "@au-parfum/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@au-parfum/db": "workspace:*",
+    "@au-parfum/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@au-parfum/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
