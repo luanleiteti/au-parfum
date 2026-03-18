@@ -1,0 +1,64 @@
+name: au-parfum
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: au-parfum-postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-au-parfum}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal
+    restart: unless-stopped
+
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    container_name: au-parfum-server
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-au-parfum}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?BETTER_AUTH_SECRET is required}
+      BETTER_AUTH_URL: ${BETTER_AUTH_URL:?BETTER_AUTH_URL is required}
+      CORS_ORIGIN: ${CORS_ORIGIN:?CORS_ORIGIN is required}
+      NODE_ENV: production
+    ports:
+      - "${SERVER_PORT:-3000}:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - internal
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NUXT_PUBLIC_SERVER_URL: ${NUXT_PUBLIC_SERVER_URL:?NUXT_PUBLIC_SERVER_URL is required}
+    container_name: au-parfum-web
+    environment:
+      NUXT_PUBLIC_SERVER_URL: ${NUXT_PUBLIC_SERVER_URL}
+    ports:
+      - "${WEB_PORT:-3001}:3000"
+    depends_on:
+      - server
+    networks:
+      - internal
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  internal:
+    driver: bridge
