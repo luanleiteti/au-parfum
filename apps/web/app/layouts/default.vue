@@ -6,5 +6,6 @@
     <UMain>
       <slot />
     </UMain>
+    <StoreFooter />
   </div>
 </template>

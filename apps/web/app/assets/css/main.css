@@ -1,2 +1,169 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@theme {
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --color-charcoal: #1f1a1c;
+  --color-linen: #f3eeef;
+}
+
+@theme static {
+  --color-parfum-50: #faf5f7;
+  --color-parfum-100: #f6eaee;
+  --color-parfum-200: #eed6de;
+  --color-parfum-300: #e1b5c4;
+  --color-parfum-400: #ce8da2;
+  --color-parfum-500: #bb6b85;
+  --color-parfum-600: #a45068;
+  --color-parfum-700: #8a3f55;
+  --color-parfum-800: #733748;
+  --color-parfum-900: #61313f;
+  --color-parfum-950: #381821;
+}
+
+:root {
+  --ui-radius: 0.125rem;
+  --ui-primary: var(--ui-color-primary-500);
+}
+
+.dark {
+  --ui-primary: var(--ui-color-primary-400);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-feature-settings: "kern" 1, "liga" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: oklch(from var(--color-parfum-500) l c h / 0.15);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(from var(--color-parfum-400) l c h / 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(from var(--color-parfum-400) l c h / 0.5);
+}
+
+/* Containers */
+.container-narrow {
+  @apply max-w-5xl mx-auto px-6;
+}
+.container-wide {
+  @apply max-w-7xl mx-auto px-6;
+}
+.container-full {
+  @apply max-w-[1600px] mx-auto px-6 lg:px-12;
+}
+
+/* Link underline animation */
+.link-underline {
+  @apply relative;
+}
+.link-underline::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-full h-px bg-current origin-left scale-x-0 transition-transform duration-500 ease-out;
+}
+.link-underline:hover::after {
+  @apply scale-x-100;
+}
+
+/* Linen background with texture */
+.bg-linen {
+  background-color: var(--color-linen);
+}
+
+/* Hover lift effect */
+.hover-lift {
+  @apply transition-all duration-500 ease-out;
+}
+.hover-lift:hover {
+  @apply -translate-y-1 shadow-lg;
+}
+
+/* Image reveal effect */
+.image-reveal {
+  @apply overflow-hidden;
+}
+.image-reveal img {
+  @apply transition-transform duration-[1.2s] ease-out;
+}
+.image-reveal:hover img {
+  @apply scale-105;
+}
+
+/* Premium button overlay */
+.btn-premium {
+  @apply relative overflow-hidden;
+}
+.btn-premium::after {
+  content: "";
+  @apply absolute inset-0 bg-white/10 translate-y-full transition-transform duration-500 ease-out;
+}
+.btn-premium:hover::after {
+  @apply translate-y-0;
+}
+
+/* Divider ornament */
+.divider-ornament {
+  @apply flex items-center gap-6;
+}
+.divider-ornament::before,
+.divider-ornament::after {
+  content: "";
+  @apply flex-1 h-px bg-[var(--ui-border)];
+}
+
+/* Product image swap */
+.product-image-swap {
+  @apply relative overflow-hidden;
+}
+.product-image-swap .image-primary {
+  @apply transition-opacity duration-700 ease-out opacity-100;
+}
+.product-image-swap .image-secondary {
+  @apply absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out opacity-0;
+}
+.product-image-swap:hover .image-primary {
+  @apply opacity-0;
+}
+.product-image-swap:hover .image-secondary {
+  @apply opacity-100;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes ken-burns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out both;
+}
+.animate-ken-burns {
+  animation: ken-burns 20s ease-out both;
+}

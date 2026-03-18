@@ -1,9 +1,5 @@
 {
   "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"]
-    },
     "nuxt": {
       "url": "https://nuxt.com/mcp"
     },
@@ -15,7 +11,10 @@
     },
     "better-t-stack": {
       "command": "bunx",
-      "args": ["create-better-t-stack@latest", "mcp"]
+      "args": [
+        "create-better-t-stack@latest",
+        "mcp"
+      ]
     }
   }
 }
